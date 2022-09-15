@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ReactComponent as MainImage } from "../../assets/images/image.svg";
 import ButtonIcon from "../../components/ButtonIcon";
 
@@ -12,7 +13,9 @@ const Home = () => {
                         <h1>Conheça o melhor catálogo de produtos</h1>
                         <p>Ajudaremos você a encontrar os melhores produtos disponíveis no mercado.</p>
                     </>
-                    <ButtonIcon />
+                    <Link to="/products">
+                        <ButtonIcon />
+                    </Link>
                 </div>
                 <div className="home-image-container">
                     <MainImage />

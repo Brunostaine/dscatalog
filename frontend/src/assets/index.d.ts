@@ -5,6 +5,16 @@ declare module "*.svg" {
     export default src;
 }
 
+declare module "*.png" {
+    const content: string;
+    export default content;
+}
+
+declare module "*.jpg" {
+    const content: string;
+    export default content;
+}
+
 // Código que resolve o problema de imports de svg e outros caso necessario
 
 // Fonte de informação explicativa

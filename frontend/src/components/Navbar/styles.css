@@ -20,6 +20,7 @@
 
 .main-menu a {
     color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
 }
 
 .main-menu a:hover  {

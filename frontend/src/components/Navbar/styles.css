@@ -7,8 +7,9 @@
     border: none;
 }
 
-.nav-logo-text, .nav-logo-text:hover {
-    color: #FFF;
+.nav-logo-text,
+.nav-logo-text:hover {
+    color: #fff;
 }
 
 .main-menu {
@@ -23,11 +24,11 @@
     text-transform: uppercase;
 }
 
-.main-menu a:hover  {
-    color: #FFF;
+.main-menu a:hover {
+    color: #fff;
 }
 
 .main-menu a.active {
-    color: #FFF;
+    color: #fff;
     font-weight: bold;
 }

@@ -5,10 +5,11 @@ import ProductPrice from "../../components/ProductPrice";
 const ProductDetails = () => {
     return (
         <div className="product-details-container">
-            <div className="product-details-card">
+            <div className="base-card product-details-card">
                 <div className="goback-container">
                     <ArroIcon />
                     <h2>Voltar</h2>
+                </div>
                     <div className="row">
                         <div className="col-xl-6">
                             <div className="img-container">
@@ -26,7 +27,7 @@ const ProductDetails = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                
             </div>
         </div>
     );

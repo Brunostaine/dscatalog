@@ -1,9 +1,22 @@
-import "./styles.css";
-
 import { ReactComponent as ArroIcon } from "../../assets/images/arrow.svg";
 import ProductPrice from "../../components/ProductPrice";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import "./styles.css";
+import { Product } from "../../types/product";
+import axios from "axios";
+import { BASE_URL } from "../../util/requests";
+
 const ProductDetails = () => {
+    const [product, SetProduct] = useState<Product>();
+
+    useEffect(() => {
+        axios.get(BASE_URL + "/products/2").then((response) => {
+            SetProduct(response.data);
+        });
+    }, []);
+
     return (
         <div className="product-details-container">
             <div className="base-card product-details-card">
@@ -16,25 +29,17 @@ const ProductDetails = () => {
                 <div className="row">
                     <div className="col-xl-6">
                         <div className="img-container">
-                            <img
-                                src="https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/2-big.jpg"
-                                alt="name"
-                            />
+                            <img src={product?.imgUrl} alt={product?.name} />
                         </div>
                         <div className="name-price-container">
-                            <h1>Nome produto</h1>
-                            <ProductPrice price={2345.67} />
+                            <h1>{product?.name}</h1>
+                            {product && <ProductPrice price={product?.price} />}
                         </div>
                     </div>
                     <div className="col-xl-6">
                         <div className="description-container">
-                            <h2>Descrição do produto</h2>
-                            <p>
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis eligendi
-                                est pariatur perferendis doloribus impedit sunt, tempore incidunt ad
-                                sint totam eum aut. Cupiditate quaerat ullam est distinctio soluta
-                                maxime?
-                            </p>
+                            <h2>Descrição do Produto</h2>
+                            <p>{product?.description}</p>
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Admin from "./pages/Admin";
 import Auth from "./pages/Admin/Auth";
+import Login from "./pages/Admin/Auth/Login";
 import Catalog from "./pages/Catalog";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
@@ -25,7 +26,7 @@ const AppRoutes = () => {
                 </Route>
 
                 <Route path="/admin/auth" element={<Auth />}>
-                    <Route path="/admin/auth/login" element={<h1>Card de Login</h1>} />
+                    <Route path="/admin/auth/login" element={<Login />} />
                     <Route path="/admin/auth/signup" element={<h1>Card de Signup</h1>} />
                     <Route path="/admin/auth/recover" element={<h1>Card de Recover</h1>} />
                 </Route>

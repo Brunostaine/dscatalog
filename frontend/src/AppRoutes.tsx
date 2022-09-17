@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Admin from "./pages/Admin";
 import Auth from "./pages/Admin/Auth";
 import Login from "./pages/Admin/Auth/Login";
+import Users from "./pages/Admin/User";
 import Catalog from "./pages/Catalog";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
@@ -22,7 +23,7 @@ const AppRoutes = () => {
                 <Route path="/admin" element={<Admin />}>
                     <Route path="/admin/products" element={<h1>Products</h1>} />
                     <Route path="/admin/categories" element={<h1>Categoria</h1>} />
-                    <Route path="/admin/usuarios" element={<h1>Usuarios</h1>} />
+                    <Route path="/admin/usuarios" element={<Users />} />
                 </Route>
 
                 <Route path="/admin/auth" element={<Auth />}>

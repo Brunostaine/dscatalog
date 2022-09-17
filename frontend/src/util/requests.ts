@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import qs from "qs"
 
@@ -42,6 +43,17 @@ export const requestBackendLogin = (loginData: LoginData) => {
         headers,
     });
 };
+
+export const requestBackend = (config: AxiosRequestConfig) => {
+    const headers = config.withCredentials
+      ? {
+          ...config.headers,
+          Authorization: 'Bearer ' + getAuthData().access_token,
+        }
+      : config.headers;
+  
+    return axios({ ...config, baseURL: BASE_URL, headers });
+  };
 
 export const saveAuthData = (obj: LoginResponse) => {
     localStorage.setItem(tokenKey, JSON.stringify(obj));

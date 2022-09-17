@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -24,3 +24,5 @@
     "src"
   ]
 }
+
+// "forceConsistentCasingInFileNames": foi modificado para false para corrigir um erro de compilação

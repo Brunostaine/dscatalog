@@ -1,9 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import { useEffect } from "react";
 
 import "./styles.css";
 
 const Admin = () => {
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        navigate("/admin/products");
+    }, []);
+    
     return (
         <div className="admin-container">
             <Navbar />

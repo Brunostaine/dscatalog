@@ -1,6 +1,15 @@
 import { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import qs from "qs"
+import jwtDecode from 'jwt-decode';
+
+export type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
+
+export type TokenData = {
+    exp: number;
+    user_name: string;
+    authorities: Role[];
+};
 
 export type LoginResponse = {
     access_token: string;
@@ -55,11 +64,30 @@ export const requestBackend = (config: AxiosRequestConfig) => {
     return axios({ ...config, baseURL: BASE_URL, headers });
 };
 
+// Salva token no localstorage
 export const saveAuthData = (obj: LoginResponse) => {
     localStorage.setItem(tokenKey, JSON.stringify(obj));
 };
 
+// Busca token no localstorage
 export const getAuthData = () => {
     const str = localStorage.getItem(tokenKey) ?? '{}';
     return JSON.parse(str) as LoginResponse;
 };
+
+
+// decodifica o token e busca informações do usuário
+export const getTokenData = (): TokenData | undefined => {
+    try {
+        return jwtDecode(getAuthData().access_token) as TokenData;
+    } catch (error) {
+        return undefined;
+    }
+}
+
+// Verifica se o usuario está autenticado e se o token é válido
+export const isAuthenticated = (): boolean => {
+    const tokenData = getTokenData();
+
+    return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;
+}

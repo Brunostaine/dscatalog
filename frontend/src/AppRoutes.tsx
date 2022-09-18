@@ -23,8 +23,22 @@ const AppRoutes = () => {
                 <Route path="/products/:productId" element={<ProductDetails />} />
 
                 <Route path="/admin" element={<Admin />}>
-                    <Route path="/admin/products" element={<h1>Products</h1>} />
-                    <Route path="/admin/categories" element={<h1>Categoria</h1>} />
+                    <Route
+                        path="/admin/products"
+                        element={
+                            <PrivateRoutes>
+                                <h1>Products</h1>
+                            </PrivateRoutes>
+                        }
+                    />
+                    <Route
+                        path="/admin/categories"
+                        element={
+                            <PrivateRoutes>
+                                <h1>Categoria</h1>
+                            </PrivateRoutes>
+                        }
+                    />
                     <Route
                         path="/admin/usuarios"
                         element={

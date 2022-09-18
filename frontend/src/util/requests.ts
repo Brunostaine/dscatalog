@@ -75,6 +75,11 @@ export const getAuthData = () => {
     return JSON.parse(str) as LoginResponse;
 };
 
+// Remove o token do localstorage
+export const removeAuthData = () => {
+    localStorage.removeItem(tokenKey);
+};
+
 
 // decodifica o token e busca informações do usuário
 export const getTokenData = (): TokenData | undefined => {

@@ -1,9 +1,42 @@
 import "./styles.css";
 import "../../../node_modules/bootstrap/js/src/collapse.js";
+import { useState, useEffect } from "react";
 
-import { Link, NavLink } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
+import { getTokenData, isAuthenticated, removeAuthData, TokenData } from "../../util/requests";
+
+type AuthData = {
+    authenticated: boolean;
+    tokenData?: TokenData;
+};
 
 const Navbar = () => {
+    const [authData, setAuthData] = useState<AuthData>({ authenticated: false });
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            setAuthData({
+                authenticated: true,
+                tokenData: getTokenData(),
+            });
+        } else {
+            setAuthData({
+                authenticated: false,
+            });
+        }
+    }, []);
+
+    const handleLogout = (e: any) => {
+        e.preventDefault();
+        removeAuthData();
+        setAuthData({
+            authenticated: false,
+        });
+        navigate("/");
+    };
+
     return (
         <nav className="navbar navbar-expand-md bg-primary main-nav navbar-dark">
             <div className="container-fluid">
@@ -35,6 +68,18 @@ const Navbar = () => {
                             <NavLink to="/admin">Admin</NavLink>
                         </li>
                     </ul>
+                </div>
+                <div>
+                    {authData.authenticated ? (
+                        <>
+                            <span>{authData.tokenData?.user_name}</span>
+                            <Link to="#" onClick={handleLogout}>
+                                LOGOUT
+                            </Link>
+                        </>
+                    ) : (
+                        <Link to="/admin/auth/login">LOGIN</Link>
+                    )}
                 </div>
             </div>
         </nav>

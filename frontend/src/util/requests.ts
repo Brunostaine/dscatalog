@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import qs from "qs"
 
-type LoginResponse = {
+export type LoginResponse = {
     access_token: string;
     token_type: string;
     expires_in: number;
@@ -11,7 +11,7 @@ type LoginResponse = {
     userId: number;
 };
 
-const tokenKey = 'authData';
+export const tokenKey = 'authData';
 
 export const BASE_URL =
     process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
@@ -46,14 +46,14 @@ export const requestBackendLogin = (loginData: LoginData) => {
 
 export const requestBackend = (config: AxiosRequestConfig) => {
     const headers = config.withCredentials
-      ? {
-          ...config.headers,
-          Authorization: 'Bearer ' + getAuthData().access_token,
+        ? {
+            ...config.headers,
+            Authorization: 'Bearer ' + getAuthData().access_token,
         }
-      : config.headers;
-  
+        : config.headers;
+
     return axios({ ...config, baseURL: BASE_URL, headers });
-  };
+};
 
 export const saveAuthData = (obj: LoginResponse) => {
     localStorage.setItem(tokenKey, JSON.stringify(obj));

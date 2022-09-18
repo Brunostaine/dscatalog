@@ -26,7 +26,9 @@ const Login = () => {
         requestBackendLogin(formData)
             .then((response) => {
                 saveAuthData(response.data);
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const token = getAuthData().access_token;
+                
                 setHasError(false);
                 navigate("/admin");
             })

@@ -9,6 +9,8 @@ import Catalog from "./pages/Catalog";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 
+import { PrivateRoutes } from "./PrivateRoutes";
+
 const AppRoutes = () => {
     return (
         <BrowserRouter>
@@ -23,7 +25,14 @@ const AppRoutes = () => {
                 <Route path="/admin" element={<Admin />}>
                     <Route path="/admin/products" element={<h1>Products</h1>} />
                     <Route path="/admin/categories" element={<h1>Categoria</h1>} />
-                    <Route path="/admin/usuarios" element={<Users />} />
+                    <Route
+                        path="/admin/usuarios"
+                        element={
+                            <PrivateRoutes>
+                                <Users />
+                            </PrivateRoutes>
+                        }
+                    />
                 </Route>
 
                 <Route path="/admin/auth" element={<Auth />}>

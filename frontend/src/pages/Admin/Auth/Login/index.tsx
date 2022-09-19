@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../AuthContext";
 import ButtonIcon from "../../../../components/ButtonIcon/index";
-import { getAuthData, requestBackendLogin, saveAuthData } from "../../../../util/requests";
+import { getTokenData, requestBackendLogin, saveAuthData } from "../../../../util/requests";
 
 import "./styles.css";
 
@@ -12,6 +13,9 @@ type FormData = {
 };
 
 const Login = () => {
+
+    const {setAuthContextData } = useContext(AuthContext);
+
     const [hasError, setHasError] = useState(false);
 
     const navigate = useNavigate();
@@ -26,10 +30,11 @@ const Login = () => {
         requestBackendLogin(formData)
             .then((response) => {
                 saveAuthData(response.data);
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                const token = getAuthData().access_token;
-                
                 setHasError(false);
+                setAuthContextData({
+                    authenticated: true,
+                    tokenData: getTokenData(),
+                })
                 navigate("/admin");
             })
             .catch((error) => {

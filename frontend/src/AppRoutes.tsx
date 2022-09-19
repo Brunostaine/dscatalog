@@ -51,7 +51,7 @@ const AppRoutes = () => {
 
                 <Route path="/admin/auth" element={<Auth />}>
                     <Route path="/admin/auth/login" element={<Login />} />
-                    <Route path="/admin/auth/signup" element={<h1>Card de Signup</h1>} />
+                    <Route path="/admin/auth/register" element={<h1>Card de Signup</h1>} />
                     <Route path="/admin/auth/recover" element={<h1>Card de Recover</h1>} />
                 </Route>
             </Routes>

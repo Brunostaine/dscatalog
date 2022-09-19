@@ -1,6 +1,8 @@
 import { Navigate } from "react-router-dom";
+import { isAuthenticated } from "./util/auth";
+import { getAuthData } from "./util/storage";
 
-import { getAuthData, isAuthenticated } from "./util/requests";
+
 
 export const PrivateRoutes = ({ children }: any) => {
     const user = getAuthData().access_token;

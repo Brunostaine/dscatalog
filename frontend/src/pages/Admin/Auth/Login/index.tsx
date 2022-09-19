@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthContext";
 import ButtonIcon from "../../../../components/ButtonIcon/index";
-import { getTokenData, requestBackendLogin, saveAuthData } from "../../../../util/requests";
+import { getTokenData } from "../../../../util/auth";
+import { requestBackendLogin} from "../../../../util/requests";
+import { saveAuthData } from "../../../../util/storage";
 
 import "./styles.css";
 

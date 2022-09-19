@@ -1,26 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import qs from "qs"
-import jwtDecode from 'jwt-decode';
-
-export type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
-
-export type TokenData = {
-    exp: number;
-    user_name: string;
-    authorities: Role[];
-};
-
-export type LoginResponse = {
-    access_token: string;
-    token_type: string;
-    expires_in: number;
-    scope: string;
-    userFirstName: string;
-    userId: number;
-};
-
-export const tokenKey = 'authData';
+import { getAuthData } from './storage';
 
 export const BASE_URL =
     process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
@@ -62,59 +43,4 @@ export const requestBackend = (config: AxiosRequestConfig) => {
         : config.headers;
 
     return axios({ ...config, baseURL: BASE_URL, headers });
-};
-
-// Salva token no localstorage
-export const saveAuthData = (obj: LoginResponse) => {
-    localStorage.setItem(tokenKey, JSON.stringify(obj));
-};
-
-// Busca token no localstorage
-export const getAuthData = () => {
-    const str = localStorage.getItem(tokenKey) ?? '{}';
-    return JSON.parse(str) as LoginResponse;
-};
-
-// Remove o token do localstorage
-export const removeAuthData = () => {
-    localStorage.removeItem(tokenKey);
-};
-
-
-// decodifica o token e busca informações do usuário
-export const getTokenData = (): TokenData | undefined => {
-    try {
-        return jwtDecode(getAuthData().access_token) as TokenData;
-    } catch (error) {
-        return undefined;
-    }
-}
-
-// Verifica se o usuario está autenticado e se o token é válido
-export const isAuthenticated = (): boolean => {
-    const tokenData = getTokenData();
-
-    return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;
-}
-
-// Verifica os roles de usuário
-export const hasAnyRoles = (roles: Role[]): boolean => {
-    if (roles.length === 0) {
-        return true;
-    }
-
-    const tokenData = getTokenData();
-
-    if (tokenData !== undefined) {
-        for (var i = 0; i < roles.length; i++) {
-            if (tokenData.authorities.includes(roles[i])) {
-                return true;
-            }
-        }
-
-        // Função alternativa que gera o mesmo resultado
-        // return roles.some(role => tokenData.authorities.includes(role));
-    }
-
-    return false;
 };

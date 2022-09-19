@@ -1,15 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { PrivateRoutes } from "./PrivateRoutes";
 
 import Navbar from "./components/Navbar";
 import Admin from "./pages/Admin";
 import Auth from "./pages/Admin/Auth";
 import Login from "./pages/Admin/Auth/Login";
+import Products from "./pages/Admin/Products";
 import Users from "./pages/Admin/User";
 import Catalog from "./pages/Catalog";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
-
-import { PrivateRoutes } from "./PrivateRoutes";
+import List from "./pages/Admin/Products/List";
 
 const AppRoutes = () => {
     return (
@@ -24,12 +25,13 @@ const AppRoutes = () => {
 
                 <Route path="/admin" element={<Admin />}>
                     <Route
-                        path="/admin/products"
+                        path="/admin/products/*"
                         element={
                             <PrivateRoutes>
-                                <h1>Products</h1>
+                                <Products />
                             </PrivateRoutes>
                         }
+                        children={<Route path="/admin/products/*" element={<List />} />}
                     />
                     <Route
                         path="/admin/categories"
